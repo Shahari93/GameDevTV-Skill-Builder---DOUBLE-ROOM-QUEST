@@ -7,14 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
-    [SerializeField] private GameObject youWinText = null;
+    [SerializeField] private GameObject youWinPanel = null;
+    [SerializeField] private GameObject youLosePanel = null; // Floor Is Lava Challenge 
 
     [SerializeField] private List<PlayerMovement> allPlayerCubes = new List<PlayerMovement>();
 
     private void Start()
     {
         allPlayerCubes.AddRange(FindObjectsOfType<PlayerMovement>());
-        youWinText.SetActive(false);
+        youWinPanel.SetActive(false);
+        youLosePanel.SetActive(false); // Floor Is Lava Challenge 
     }
 
     public void RemovePlayerCubeFromList(PlayerMovement thisCube)
@@ -27,12 +29,26 @@ public class GameHandler : MonoBehaviour
     {
         if (allPlayerCubes.Count <= 0)
         {
-            youWinText.SetActive(true);
+            youWinPanel.SetActive(true);
+        }
+    }
+
+    // Floor Is Lava Challenge 
+    public void CheckIfPlayerHitSpike()
+    {
+        for (int i = 0; i < allPlayerCubes.Count; i++)
+        {
+            if(allPlayerCubes[i].IsGameOver == true)
+            {
+                youLosePanel.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
 
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
     }
 }
