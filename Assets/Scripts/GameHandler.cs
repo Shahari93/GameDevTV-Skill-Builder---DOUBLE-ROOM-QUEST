@@ -1,10 +1,9 @@
 ﻿// GameDev.tv Challenge Club. Got questions or want to share your nifty solution?
 // Head over to - http://community.gamedev.tv 
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class GameHandler : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class GameHandler : MonoBehaviour
     private void Start()
     {
         allPlayerCubes.AddRange(FindObjectsOfType<PlayerMovement>());
+        youWinText.SetActive(false);
     }
 
     public void RemovePlayerCubeFromList(PlayerMovement thisCube)
@@ -25,7 +25,14 @@ public class GameHandler : MonoBehaviour
 
     private void CheckIfLevelComplete()
     {
-        // Challenge 5:  
+        if (allPlayerCubes.Count <= 0)
+        {
+            youWinText.SetActive(true);
+        }
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
