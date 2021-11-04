@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraControls : MonoBehaviour
 {
     private Camera mainCamera;
-    [SerializeField] private float zoomSpeed;
+    [SerializeField] private float zoomSpeed, rotateSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -28,5 +28,14 @@ public class CameraControls : MonoBehaviour
             mainCamera.fieldOfView += zoomSpeed * Time.deltaTime;
         }
 
+        if (Input.GetKey(KeyCode.C))
+        {
+            mainCamera.transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
+        }
+
+        else if (Input.GetKey(KeyCode.Z))
+        {
+            mainCamera.transform.Rotate(Vector3.forward, -rotateSpeed * Time.deltaTime);
+        }
     }
 }
