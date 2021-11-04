@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        Debug.Log(IsGameOver);
     }
 
     private void ProcessInputs()
